@@ -253,7 +253,8 @@ light all off
 
 # Red phase
 light [1,4] on
-light [2,3,5] off fade 0.2 wait 8.0
+light [2,3,5] off fade 0.2 
+wait 8.0
 
 # Green phase
 light [1,4] off fade 0.2
