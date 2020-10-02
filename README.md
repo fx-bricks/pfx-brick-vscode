@@ -263,7 +263,8 @@ wait 8.0
 
 # Pedestrian crossing warning 
 light 5 off fade 0.1
-light 4 flash 0.4 fade 0.1 wait 5
+light 4 flash 0.4 fade 0.1 
+wait 5
 
 # Yellow
 light 3 off fade 0.2 
