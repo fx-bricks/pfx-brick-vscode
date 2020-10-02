@@ -146,7 +146,8 @@ commands are a combination of the following keywords and values:
 ~~~
 light 1 on
 light [1,4,8] off fade 0.5
-light [2,4] flash 0.1 0.4 fade 0.1 light all bright 128
+light [2,4] flash 0.1 0.4 fade 0.1
+light all bright 128
 light [6,7] fx 0x0C [1,0,3,0,0]
 ~~~
 
@@ -264,7 +265,8 @@ light 5 off fade 0.1
 light 4 flash 0.4 fade 0.1 wait 5
 
 # Yellow
-light 3 off fade 0.2 light [2,4] on
+light 3 off fade 0.2 
+light [2,4] on
 wait 4
 
 # Start the sequence again 
