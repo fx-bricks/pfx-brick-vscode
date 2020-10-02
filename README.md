@@ -7,7 +7,7 @@
 
 This repository contains a language support extension to Visual Studio Code for the [PFx Brick](https://www.fxbricks.com/pfxbrick) scripting language.
 
-LDraw is an open standard for LEGO® CAD software.  It is based on a hierarchy of elements describing primitive shapes up to complex LEGO models and scenes. 
+The PFx Brick scripting language is based on a very simple syntax. Script files are plain text files with the `.pfx` file extension.
 
 ## Syntax Highlighting
 
@@ -31,6 +31,7 @@ Copy the PFx Brick extension to the VSCode extension directory:
 Restart VSCode and the extension should run automatically everytime you open a file with `.pfx` file extension.
 
 ## Scripting Actions
+
 As of ICD version 3.37 (and PFx Brick firmware versions 1.40+), the ability to execute complex actions and behaviours defined in script files was added. Script files are simple, human readable text files stored in the PFx Brick file system. These files conform to a simple script language syntax described later in this document. The scripting capability can be summarized as follows:
 
 1. Scripts are ASCII text files stored in the PFx Brick file system.
