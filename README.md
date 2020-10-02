@@ -280,7 +280,8 @@ repeat
 
 # Start with everything off
 light all off
-sound stop all motor all off
+sound stop all 
+motor all off
 
 # Wait for joystick remote ch 1 right up
 wait ir joy ch 1 right up
