@@ -259,7 +259,8 @@ light [1,4] off fade 0.2
 light [3,5] on
 wait 8.0
 
-# Pedestrian crossing warning light 5 off fade 0.1
+# Pedestrian crossing warning 
+light 5 off fade 0.1
 light 4 flash 0.4 fade 0.1 wait 5
 
 # Yellow
@@ -288,7 +289,8 @@ light all on
 sound play "MySong.wav"
 
 # Wait until song is finished, stop and repeat
-wait sound "MySong.wav" motor a stop
+wait sound "MySong.wav" 
+motor a stop
 repeat
 ```
 
