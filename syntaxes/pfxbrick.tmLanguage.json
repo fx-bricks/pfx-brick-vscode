@@ -1,0 +1,84 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "pfxbrick",
+	"patterns": [
+		{
+			"include": "#commands"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#hexnumbers"
+		},
+		{
+			"include": "#comments"
+		}
+	],
+	"repository": {
+		"commands": {
+			"patterns": [{
+				"name": "keyword.control.pfxbrick",
+				"match": "\\b(light|motor|sound|ir|wait|repeat|run|stop)\\b"
+			}]
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "variable.language.pfxbrick",
+				"match": "\\b(play|fade|all|on|off|flash|loop|left|right|up|down|ch|speed|fx|vol|bass|treble|bright|joy|beep|button|servo)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.pfxbrick",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.pfxbrick",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [{
+				"name": "constant.numeric",
+				"match": "[0-9]*\\.?[0-9]+"
+			}]
+		},
+		"hexnumbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.pfxbrick",
+					"match": "0[xX][0-9a-fA-F]+"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"match": "(\/\/.*$)",
+					"captures": {
+						"1": {
+							"name": "comment.line.character.pfxbrick"
+						}
+					}
+				},
+				{
+					"match": "(#.*$)",
+					"captures": {
+						"1": {
+							"name": "comment.line.character.pfxbrick"
+						}
+					}
+				}
+			]
+		}	
+	},
+	"scopeName": "source.pfxbrick"
+}
