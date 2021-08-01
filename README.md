@@ -348,4 +348,6 @@ repeat
 
 * [PFx Brick Interface Control Document (ICD) v.3.37](https://github.com/fx-bricks/pfx-brick-dev/raw/master/doc/ICD/PFxBrickICD-Rev3.37.pdf) describes details of PFx Brick operation and communication protocol
 
-If you want to learn more about PFx Brick, check out [our website](https://fxbricks.com/pfxbrick>).
+* [brickelectronic.de](http://brickelectronic.de) has kindly contributed a custom [PFx language profile for Notepad++](https://github.com/Brickelectronic/pfxbrick_notepadplusplus) available from their Github repository.
+
+If you want to learn more about PFx Brick, check out [our website](https://fxbricks.com/pfxbrick).
