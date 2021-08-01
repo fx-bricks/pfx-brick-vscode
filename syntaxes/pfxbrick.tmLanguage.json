@@ -9,6 +9,9 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#constant"
+		},
+		{
 			"include": "#strings"
 		},
 		{
@@ -25,13 +28,19 @@
 		"commands": {
 			"patterns": [{
 				"name": "keyword.control.pfxbrick",
-				"match": "\\b(light|motor|sound|ir|wait|repeat|run|stop)\\b"
+				"match": "\\b(light|motor|sound|ir|wait|repeat|run|set|stop|event)\\b"
 			}]
 		},
 		"keywords": {
 			"patterns": [{
 				"name": "variable.language.pfxbrick",
-				"match": "\\b(play|fade|all|on|off|flash|loop|left|right|up|down|ch|speed|fx|vol|bass|treble|bright|joy|beep|button|servo)\\b"
+				"match": "\\b(acc|all|bass|beep|ble|brake|bright|button|ch|changedir|config|connect|decel|disconnect|down|fade|file|flash|fx|gated|invert|joy|left|loop|long|off|on|play|rate|right|servo|shutdown|speed|startup|thr|treble|up|usb|vol)\\b"
+			}]
+		},
+		"constant": {
+			"patterns": [{
+				"name": "variable.other",
+				"match": "\\${1}[A-F]"
 			}]
 		},
 		"strings": {

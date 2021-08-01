@@ -1,11 +1,11 @@
 {
     "name": "pfxbrick",
     "displayName": "PFxBrick",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "engines": {
         "vscode": ">=0.9.0-pre.1"
     },
-    "publisher": "Fx Bricks",
+    "publisher": "FxBricks",
     "homepage": "https://github.com/fxbricks/pfx-brick-vscode/blob/master/README.md",
     "repository": {
         "type": "git",
@@ -16,7 +16,8 @@
         "languages": [{
             "id": "pfxbrick",
             "aliases": ["PFxBrick", "pfx"],
-            "extensions": [".pfx"]
+            "extensions": [".pfx"],
+            "configuration": "./syntaxes/pfxbrick-language-configuration.json"
         }],
         "grammars": [{
             "language": "pfxbrick",

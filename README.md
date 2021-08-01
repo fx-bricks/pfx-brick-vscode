@@ -18,17 +18,12 @@ This extension provides convenient syntax highlighting for working with PFx Bric
 
 ## Installation
 
-Copy the PFx Brick extension to the VSCode extension directory:
+Installing the language extension is easy using `vsix` package bundle included in this repository.  To install the extension:
 
-- **Windows**: `%USERPROFILE%\.vscode\extensions`
-- **macOS/Linux**: `$HOME/.vscode/extensions`
-
-```shell
-    $ git clone https://github.com/fxbricks/pfx-brick-vscode.git
-    $ cp -R pfx-brick-vscode/ ~/.vscode/extensions/ldraw-vscode
-```
-
-Restart VSCode and the extension should run automatically everytime you open a file with `.pfx` file extension.
+1. Select the Extensions icon in the VSCode side bar
+2. Select the (...) menu at the top of the sidebar 
+3. Select `Install from VSIX...` from the menu
+4. Select the `pfxbrick-X.X.X.vsix` file
 
 ## Scripting Actions
 
@@ -65,7 +60,7 @@ The PFx Brick script language syntax is a simple human readable free form text f
 
 Comment lines start with either a `#` character (similar to python) or `//` characters (similar to C++). Comments should not be used in line with a command.
 
-~~~
+~~~php
 # Valid comment
 // Another valid comment
 light 1 on  # not a valid comment location
@@ -77,42 +72,48 @@ The script syntax uses case sensitive keyword commands and specifiers.  There ar
 
 The primary keyword commands are as follows:
 
-~~~
+~~~php
 light <channels> <commands>
 motor <channels> <commands>
 sound <commands>
 ir <parameters>
 wait <parameters>
+event
 repeat
+set <var> = <value>
+set config <var> = <value>
+set file <type> = <file>
 run
 stop
 ~~~
 
 The secondary command and parameter keywords are as follows:
 
-~~~
-play, fade, all, on, off, flash, loop, left, right, up, down,
-ch, speed, fx, vol, bass, treble, bright, joy, beep, button
+~~~php
+acc, all, bass, beep, ble, brake, bright, button, ch, changedir, config, 
+connect, dec, disconnect, down, fade, file, flash, fx, gated, invert, joy,
+left, loop, long, off, on, play, rate, right, servo, shutdown, speed, 
+startup, thr, treble, up, usb, vol
 ~~~
 
 ### Numeric Values
 
 Many commands and options require specified numeric quantities.  The script syntax supports both integer and decimal values.  The following are examples of valid numeric quantities:
 
-~~~
+~~~php
 0 127 -55 0.010 35.75 -90.5
 ~~~
 
 Additionally, integer values may be specified in hexadecimal (base16) prefixed with the characters `0x`.
 
-~~~
+~~~php
 0x0 0xABCD 0x32
 ~~~
 
 
 For commands which support a list of values, a list is specified as a group of comma separated numbers enclosed in matching square brackets:
 
-~~~
+~~~php
 [0, 1, 2, 3]
 ~~~
 
@@ -120,13 +121,28 @@ For commands which support a list of values, a list is specified as a group of c
 
 Some commands also support the use of strings--typically for specifying items such as filenames.  Strings are UTF-8 formatted and enclosed within double quotations marks (`"`).
 
-~~~
+~~~php
 "This is a string"
 ~~~
 
+### Variables
+
+Six general purpose variable registers can be used to store constants for use in a script.  The variables have the following uppercase names: `$A, $B, $C, $D, $E, $F`.  Use the `set` keyword to assign a variable as follows:
+
+```php
+
+set $A = 0.5
+set $B = 3.0
+set $C = "Beep.wav"
+light 1 on flash $A
+wait $B
+sound play $C
+
+```
+
 ### Light Commands
 
-~~~
+~~~php
 light <channels> <commands>
 ~~~
 
@@ -143,7 +159,7 @@ commands are a combination of the following keywords and values:
 
 **Examples:**
 
-~~~
+~~~php
 light 1 on
 light [1,4,8] off fade 0.5
 light [2,4] flash 0.1 0.4 fade 0.1
@@ -153,7 +169,7 @@ light [6,7] fx 0x0C [1,0,3,0,0]
 
 ### Sound Commands
 
-~~~
+~~~php
 sound <command>
 ~~~
 
@@ -162,6 +178,7 @@ sound <command>
 - `stop fileID` - stop playback of fileID
 - `play fileID repeat` - continuous playback of fileID 
 - `play fileID loop <value>` - plays fileID for value times 
+- `play fileID random <probability>` - random playback of fileID 
 - `vol <value>` - set volume (0 to 255)
 - `bass <value>` - set bass (-20 to 20)
 - `beep` - short beep sound
@@ -172,17 +189,17 @@ sound <command>
 
 **Examples:**
 
-~~~
+```php
 sound play 3 loop 5 
 sound play "Siren1.wav" 
 sound vol 160
 sound treble -6
 sound fx 9 0x04 0 0
-~~~
+```
 
 ### Motor Commands
 
-~~~
+~~~php
 motor <channels> <command>
 ~~~
 
@@ -196,7 +213,7 @@ motor <channels> <command>
 
 **Examples:**
 
-~~~
+~~~php
 motor all stop
 motor a speed -50
 motor 2 servo 45 
@@ -229,53 +246,80 @@ Redirect execution to same or different script:
 - `run fileID` - execute script with fileID
 - `stop` - stops the script at the current line
 
+Nesting looping:
+- `repeat <n> { ... }`
+
 **Examples:**
 
-~~~
+~~~php
 wait 3.0
 wait sound 5
 wait ir joy left up
 wait ir speed ch 4 left button stop
 run 3
 run "MyScript.txt"
+
+repeat 3 {
+    repeat 2 {
+        light 1 on
+        wait 0.5
+        light 1 off
+    }
+    light 2 on
+    wait 1
+    light 2 off
+}
 ~~~
 
 ## Sample Scripts
 
-```python
+```php
 # Traffic light sequence
 #
 # Ch 1: Red, Ch 2: Yellow, Ch 3: Green 
 # Ch 4: Don't Walk, Ch 5: Walk
 
+# set IR action to turn lights off
+event ir joy ch 1 left up {
+    light all off
+}
+# set IR action to run this script
+event ir joy ch 1 left down {
+    run "traffic_light.pfx"
+}
+
+# set A to represent the dwell phase
+set $A = 8.0
+# set B to represent the flashing crosswalk phase
+set $B = 5.0
+# set C to represent the yellow phase
+set $C = 4.0
+
 # reset all light channels
 light all off
 
-# Red phase
-light [1,4] on
-light [2,3,5] off fade 0.2 
-wait 8.0
-
-# Green phase
-light [1,4] off fade 0.2
-light [3,5] on
-wait 8.0
-
-# Pedestrian crossing warning 
-light 5 off fade 0.1
-light 4 flash 0.4 fade 0.1 
-wait 5
-
-# Yellow
-light 3 off fade 0.2 
-light [2,4] on
-wait 4
-
-# Start the sequence again 
-repeat
+# run through the sequence 5 times
+repeat 5 {
+    # Red phase
+    light [1, 4] on
+    light [2, 3, 5] off fade 0.2 
+    wait $A
+    # Green phase
+    light [1, 4] off fade 0.2
+    light [3, 5] on
+    wait $A
+    # Pedestrian crossing warning 
+    light 5 off fade 0.1
+    light 4 flash 0.4 fade 0.1 
+    wait $B
+    # Yellow
+    light 3 off fade 0.2
+    light [2, 4] on
+    wait $B
+}
 ```
 
-```python
+```php
 # Motorized musical procession
 #
 # Vehicle with motor, lights and music; Triggered by IR remote
